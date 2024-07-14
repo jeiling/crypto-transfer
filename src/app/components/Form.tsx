@@ -31,7 +31,7 @@ const Form = () => {
         <SelectToken control={control} onExchange={handleExchange} />
         <BalanceInput control={control} />
         <CostInput control={control} />
-        <CardFooter className="flex flex-col border-t-2 border-indigo-500">
+        <CardFooter className="flex flex-col border-t-2 divide-slate-700">
           <Accordion className="text-sm">
             <AccordionItem
               title={
