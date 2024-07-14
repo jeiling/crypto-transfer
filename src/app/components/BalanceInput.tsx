@@ -7,7 +7,13 @@ const BalanceInput = ({ control }: { control: Control }) => {
       name="balance"
       control={control}
       render={({ field }) => (
-        <Input {...field} description={'Est. Value:'} endContent={<Button variant="light">Max</Button>} />
+        <Input
+          {...field}
+          description={`Est. Value:${
+            field.value ? Number(field.value) * 0.01 : ""
+          }`}
+          endContent={<Button variant="light">Max</Button>}
+        />
       )}
     />
   );

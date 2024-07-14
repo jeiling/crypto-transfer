@@ -1,17 +1,14 @@
 import Section from "./Section";
 import { Select, SelectItem, Button, Avatar } from "@nextui-org/react";
-import {
-  Controller,
-  Control,
-  FieldErrors,
-  FieldValues,
-} from "react-hook-form";
+import { Controller, Control, FieldErrors, FieldValues } from "react-hook-form";
 import { mockSelection } from "../constant";
 
 const SelectToken = ({
   control,
+  onExchange,
 }: {
   control: Control;
+  onExchange: () => void;
 }) => {
   return (
     <>
@@ -73,7 +70,9 @@ const SelectToken = ({
           />
         </div>
       </Section>
-      <Button className="w-6/12 m-auto">exchange</Button>
+      <Button className="w-6/12 m-auto" onClick={onExchange}>
+        exchange
+      </Button>
       <Section title="To">
         <div className="flex gap-x-4">
           <Controller
