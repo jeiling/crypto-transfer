@@ -1,13 +1,14 @@
 import Section from "./Section";
 import { Select, SelectItem, Button, Avatar } from "@nextui-org/react";
-import { Controller, Control, FieldErrors, FieldValues } from "react-hook-form";
-import { mockSelection } from "../constant";
+import { Controller, Control } from "react-hook-form";
+import { mockSelection, mockToken } from "../constant";
+import { FormValues } from "./Form";
 
 const SelectToken = ({
   control,
   onExchange,
 }: {
-  control: Control;
+  control: Control<FormValues>;
   onExchange: () => void;
 }) => {
   return (
@@ -24,19 +25,8 @@ const SelectToken = ({
                 placeholder="Select"
                 {...field}
               >
-                {mockSelection.map((animal) => (
-                  <SelectItem
-                    key={animal.key}
-                    startContent={
-                      <Avatar
-                        alt={animal.key}
-                        className="w-6 h-6"
-                        src={animal.src}
-                      />
-                    }
-                  >
-                    {animal.label}
-                  </SelectItem>
+                {mockToken.map((token) => (
+                  <SelectItem {...token}>{token.title}</SelectItem>
                 ))}
               </Select>
             )}
@@ -51,18 +41,18 @@ const SelectToken = ({
                 placeholder="Select"
                 {...field}
               >
-                {mockSelection.map((animal) => (
+                {mockSelection.map((ele) => (
                   <SelectItem
-                    key={animal.key}
+                    key={ele.key}
                     startContent={
                       <Avatar
-                        alt={animal.key}
+                        alt={ele.key}
                         className="w-6 h-6"
-                        src={animal.src}
+                        src={ele.src}
                       />
                     }
                   >
-                    {animal.label}
+                    {ele.label}
                   </SelectItem>
                 ))}
               </Select>
@@ -85,19 +75,8 @@ const SelectToken = ({
                 placeholder="Select"
                 {...field}
               >
-                {mockSelection.map((animal) => (
-                  <SelectItem
-                    key={animal.key}
-                    startContent={
-                      <Avatar
-                        alt={animal.key}
-                        className="w-6 h-6"
-                        src={animal.src}
-                      />
-                    }
-                  >
-                    {animal.label}
-                  </SelectItem>
+                {mockToken.map((token) => (
+                  <SelectItem {...token}>{token.title}</SelectItem>
                 ))}
               </Select>
             )}
@@ -112,18 +91,18 @@ const SelectToken = ({
                 placeholder="Select"
                 {...field}
               >
-                {mockSelection.map((animal) => (
+                {mockSelection.map((ele) => (
                   <SelectItem
-                    key={animal.key}
+                    key={ele.key}
                     startContent={
                       <Avatar
-                        alt={animal.key}
+                        alt={ele.key}
                         className="w-6 h-6"
-                        src={animal.src}
+                        src={ele.src}
                       />
                     }
                   >
-                    {animal.label}
+                    {ele.label}
                   </SelectItem>
                 ))}
               </Select>
