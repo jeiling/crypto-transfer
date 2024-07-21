@@ -1,19 +1,30 @@
 "use client";
 import { NextUIProvider } from "@nextui-org/react";
 import { WagmiProvider } from "wagmi";
-import { http, createConfig } from "wagmi";
-import { mainnet, sepolia } from "wagmi/chains";
+import {
+  arbitrum,
+  base,
+  mainnet,
+  optimism,
+  polygon,
+  sepolia,
+} from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SnackbarProvider } from "notistack";
+import { RainbowKitProvider, getDefaultConfig } from "@rainbow-me/rainbowkit";
 
 const queryClient = new QueryClient();
 
-export const config = createConfig({
-  chains: [mainnet, sepolia],
-  transports: {
-    [mainnet.id]: http(),
-    [sepolia.id]: http(),
-  },
+export const config = getDefaultConfig({
+  appName: 'demo',
+  projectId: 'YOUR_PROJECT_ID',
+  chains: [
+    mainnet,
+    polygon,
+    optimism,
+    arbitrum,
+    base,
+  ],
 });
 
 export function Providers({ children }: { children: React.ReactNode }) {
@@ -21,7 +32,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <NextUIProvider>
-          <SnackbarProvider>{children}</SnackbarProvider>
+          <RainbowKitProvider>
+            <SnackbarProvider>{children}</SnackbarProvider>
+          </RainbowKitProvider>
         </NextUIProvider>
       </QueryClientProvider>
     </WagmiProvider>
