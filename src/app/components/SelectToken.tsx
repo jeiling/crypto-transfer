@@ -1,8 +1,10 @@
+"use client";
 import Section from "./Section";
 import { Select, SelectItem, Button, Avatar } from "@nextui-org/react";
 import { Controller, Control } from "react-hook-form";
-import { mockSelection, mockToken } from "../constant";
+import { mockToken } from "../constant";
 import { FormValues } from "./Form";
+import { uesPublicClients } from "../utils/usePublicClients";
 
 const SelectToken = ({
   control,
@@ -11,6 +13,9 @@ const SelectToken = ({
   control: Control<FormValues>;
   onExchange: () => void;
 }) => {
+  const selection = uesPublicClients();
+  const chains = selection.map((ele) => ele.chain);
+
   return (
     <>
       <Section title="From">
@@ -41,19 +46,8 @@ const SelectToken = ({
                 placeholder="Select"
                 {...field}
               >
-                {mockSelection.map((ele) => (
-                  <SelectItem
-                    key={ele.key}
-                    startContent={
-                      <Avatar
-                        alt={ele.key}
-                        className="w-6 h-6"
-                        src={ele.src}
-                      />
-                    }
-                  >
-                    {ele.label}
-                  </SelectItem>
+                {chains.map((chain) => (
+                  <SelectItem key={chain.id}>{chain.name}</SelectItem>
                 ))}
               </Select>
             )}
@@ -91,19 +85,8 @@ const SelectToken = ({
                 placeholder="Select"
                 {...field}
               >
-                {mockSelection.map((ele) => (
-                  <SelectItem
-                    key={ele.key}
-                    startContent={
-                      <Avatar
-                        alt={ele.key}
-                        className="w-6 h-6"
-                        src={ele.src}
-                      />
-                    }
-                  >
-                    {ele.label}
-                  </SelectItem>
+                {chains.map((chain) => (
+                  <SelectItem key={chain.id}>{chain.name}</SelectItem>
                 ))}
               </Select>
             )}
