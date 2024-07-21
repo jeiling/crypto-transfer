@@ -15,15 +15,16 @@ import { parseUnits } from "viem/utils";
 import { useState } from "react";
 import { enqueueSnackbar } from "notistack";
 import { ethers } from "ethers";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export interface FormValues {
   balance: string;
   gasCost: string;
   economy: string;
   tokenFrom: string;
-  from: string;
+  from: `0x${string}`;
   tokenTo: string;
-  to: string;
+  to: `0x${string}`;
 }
 
 const Form = () => {
@@ -38,10 +39,12 @@ const Form = () => {
     mode: "onChange",
     criteriaMode: "all",
   });
+
   const { address, chain } = useAccount();
   const { data: balance } = useBalance({
     address,
   });
+  
   const { sendTransaction } = useSendTransaction();
 
   const { from, to } = watch();
@@ -61,6 +64,18 @@ const Form = () => {
         to: data.to,
         value: parseUnits(data.balance, 6),
       });
+      // NOTE: from viem doc
+      // const client = createWalletClient({
+      //   chain: data.tokenTo,
+      //   transport: custom(window.ethereum!)
+      // })
+
+      // const [address] = await client.getAddresses()
+      // const hash = await sendTransaction({
+      //   account: address,
+      //   to: data.to,
+      //   value: parseUnits(data.balance, 6),
+      // });
 
       enqueueSnackbar("Transaction sent, awaiting confirmation...");
       await txResponse.wait();
@@ -78,7 +93,7 @@ const Form = () => {
   };
 
   return (
-    <form className="w-full max-w-xs" onSubmit={handleSubmit(onSubmit)}>
+    <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
       <Card className="flex flex-col gap-y-4 p-4">
         <SelectToken control={control} onExchange={handleExchange} />
         <BalanceInput control={control} errors={errors} />
@@ -97,6 +112,15 @@ const Form = () => {
           <Button type="submit" color="primary" isLoading={isLoading}>
             connect wallet
           </Button>
+          {/* <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              padding: 12,
+            }}
+          >
+            <ConnectButton/>
+          </div> */}
         </CardFooter>
       </Card>
     </form>
